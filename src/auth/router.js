@@ -19,6 +19,8 @@ authRouter.post('/signup', (req, res, next) => {
     }).catch(next);
 });
 
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMDFiMTBmZmUzNTM2MDJhMzE4MGJlNyIsInJvbGUiOiJhZG1pbiIsInR5cGUiOiJ1c2VyIiwiaWF0IjoxNTYwMzkxOTUxLCJleHAiOjE1NjAzOTI4NTF9.EVfTmgHALfC1pmvgj1Sgwm-hzSzaBL2V6eWiFA3NxMM
+
 authRouter.get('/signin', auth, (req, res, next) => {
   res.cookie('auth', req.token);
   res.send(req.token);
