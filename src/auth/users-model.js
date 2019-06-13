@@ -3,6 +3,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+
+const usedTokens = new Set();
 
 const users = new mongoose.Schema({
   username: {type:String, required:true, unique:true},
@@ -45,6 +49,19 @@ users.statics.authenticateBasic = function(auth) {
     .then( user => user && user.comparePassword(auth.password) )
     .catch(error => {throw error;});
 };
+
+users.statics.authenticateBearer = function(token){
+  if(usedTokens.has(token)){
+    return Promise.reject('Invalid token');
+  }
+  let parsedToken = jwt.verify(token, process.env.SECRET);
+  parsedToken.type !== 'key' && usedTokens.add(token);
+
+  let query = {_id: parsedToken.id};
+  return this.findOne(query);
+};
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMDE3NGE5NmEyNzBmZjg2MzYxODcxMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTU2MDM3NjQ5MH0.LqL8L7kPcn7TkaC9Yzq-e38hkUFfHx6N8m4TNRVit9M
 
 users.methods.comparePassword = function(password) {
   return bcrypt.compare( password, this.password )
