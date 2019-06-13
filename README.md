@@ -5,7 +5,7 @@
 ### Author: Tia Rose
 
 ### Links and Resources
-* [submission PR](http://xyz.com)
+* [submission PR](https://github.com/tia-rose-401-advanced-javascript/lab-13/pull/1)
 * [travis](http://xyz.com)
 * [back-end](https://serene-savannah-33562.herokuapp.com/) (when applicable)
 
