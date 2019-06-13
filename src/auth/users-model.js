@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 
 const usedTokens = new Set();
@@ -78,7 +77,7 @@ users.methods.generateToken = function(type) {
 
   let options = {};
   if(tokenData.type === 'user'){
-    options = {expiresIn: '15m'};
+    options = {expiresIn: process.env.EXPIRE_TIME};
   }
 
   
